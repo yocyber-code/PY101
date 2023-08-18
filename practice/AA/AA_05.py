@@ -1,0 +1,7 @@
+print("Om bhur bhUvah svah")
+print("tat sav!tur varEnyam")
+print("bh@rgo devasya dhimahi")
+print("dh!yo ya nah pracodayat.")
+print("azato ma sadgamaya,")
+print("tamaza m0 jy0tirgamaya,")
+print("mrtyorma' mrtam gamaya.")
