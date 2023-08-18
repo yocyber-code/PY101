@@ -91,9 +91,15 @@ import math
 
 # math.pi 
 
-a = 1
-while a < 100:
-    print(a)
-    if a == 55:
-        pass
-    a += 1
+# a = 1
+# while a < 100:
+#     print(a)
+#     if a == 55:
+#         pass
+#     a += 1
+
+a = [1, 2, 3, 4, 5]
+b = a
+a[0] = 10
+print(a)
+print(b)
