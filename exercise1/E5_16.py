@@ -1,0 +1,12 @@
+total_sec = int(input())
+sec = total_sec % 60
+total_min = total_sec // 60
+min = total_min % 60
+total_hour = total_min // 60
+hour = total_hour % 24
+total_day = total_hour // 24
+day = total_day % 30
+total_month = total_day // 30
+month = total_month % 12
+year = total_month // 12
+print(year, month, day, hour, min, sec, sep='\n')
