@@ -53,6 +53,7 @@ if total_party_list > 150:
 
 party_list_not_integer_temp = party_list_not_integer.copy()
 if total_party_list < 150:
+    multiple = 1
     while total_party_list < 150:
         # if (sum(party_list_not_integer) == 0):
         #     break
@@ -61,6 +62,8 @@ if total_party_list < 150:
         for i in range(len(party_list_not_integer)):
             if party_list_not_integer[i] == max1:
                 max_index_list.append(i)
+        if len(max_index_list) == total_party:
+            multiple += 1
         if len(max_index_list) > 1:
             avg_target = 0
             max_index_list_temp = max_index_list.copy()
@@ -96,8 +99,9 @@ if total_party_list < 150:
                 total_party_list += 1
                 break
             else:
-                party_list_not_integer[index] = -100
-        party_list_not_integer[index] = -100
+                party_list_not_integer[index] = -100 * multiple
+        party_list_not_integer[index] = -100 * multiple
 
 for i in range(total_party):
     print(votes[i][1] + partyList_Step_3[i])
+ 
