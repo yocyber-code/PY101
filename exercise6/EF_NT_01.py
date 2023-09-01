@@ -13,7 +13,7 @@ for i in range(len(strArr)):
     vote_cast_int = []
     for j in range(len(strSplit)):
         vote_cast_int.append(int(strSplit[j]))
-    votes.append(vote_cast_int)
+    votes.append(vote_cast_int.copy())
 
 total_vote = 0
 for i in range(total_party):
@@ -29,23 +29,26 @@ for i in range(total_party):
     else:
         target_parliament_member.append(votes[i][0] / quota_score)
 
-partyList_Step_1 = []
+v_per_target_ss = []
+for i in range(total_party):
+    if target_parliament_member[i] > 0:
+        v_per_target_ss.append(votes[i][0] / target_parliament_member[i])
+    else:
+        v_per_target_ss.append(0)
+
+partyList_Step_3 = []
+party_list_not_integer = []
 for i in range(total_party):
     partyList = target_parliament_member[i] - votes[i][1]
     if partyList < 0:
         partyList = 0
-    partyList_Step_1.append(partyList)
-
-partyList_Step_2 = []
-party_list_not_integer = []
-for party_list in partyList_Step_1:
-    partyList_Step_2.append(math.floor(party_list))
-    party_list_not_integer.append(party_list % 1)
-
-partyList_Step_3 = []
-for i in range(len(partyList_Step_2)):
-    min1 = min(math.floor(target_parliament_member[i]), partyList_Step_2[i])
-    partyList_Step_3.append(min1)
+    party_list_not_integer.append(partyList % 1)
+    if target_parliament_member[i] == 0 or math.floor(partyList) == 0:
+        partyList_Step_3.append(0)
+    else:
+        min1 = target_parliament_member[i] if target_parliament_member[i] < math.floor(
+            partyList) else math.floor(partyList)
+        partyList_Step_3.append(min1)
 
 total_party_list = sum(partyList_Step_3)
 
@@ -79,13 +82,13 @@ if total_party_list < 150:
             max_index_list_temp = max_index_list.copy()
             max_index_list.clear()
             for i in max_index_list_temp:
-                avg_score_per_people = votes[i][0] / \
-                    (votes[i][0] / quota_score)
+                if v_per_target_ss[i] > 0:
+                    avg_score_per_people = votes[i][0] / v_per_target_ss[i]
+                else:
+                    avg_score_per_people = -sys.maxsize - 1
                 if avg_score_per_people >= avg_target:
                     avg_target = avg_score_per_people
                     max_index_list.append(i)
-        if len(max_index_list) == 0:
-            print("Error")
         for index in max_index_list:
             if partyList_Step_3[index] + 1 <= target_parliament_member[index]:
                 partyList_Step_3[index] += 1
@@ -97,3 +100,4 @@ if total_party_list < 150:
 
 for i in range(total_party):
     print(votes[i][1] + partyList_Step_3[i])
+ 
