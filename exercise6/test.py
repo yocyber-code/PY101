@@ -116,7 +116,8 @@ elif sum_step_3 > 150:
 
     while num_of_party_list < 150:
         max_index = 0
-        max_indeies = [0]
+        max_indeies = []
+        max_indeies.append(0)
         for i in range(1, N):
             if party_list_step_4_not_integer_copy[max_index] == party_list_step_4_not_integer_copy[i]:
                 max_indeies.append(i)
@@ -137,7 +138,8 @@ elif sum_step_3 > 150:
                     v_per_target_ss[i])
 
             target_max_index = 0
-            target_max_indeies = [0]
+            target_max_indeies = []
+            target_max_indeies.append(0)
             for i in range(len(v_per_target_ss_copy_only_max_above)):
                 if v_per_target_ss_copy_only_max_above[target_max_index] == v_per_target_ss_copy_only_max_above[i]:
                     target_max_indeies.append(i)
