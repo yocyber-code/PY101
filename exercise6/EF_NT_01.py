@@ -4,41 +4,33 @@ import sys
 total_party = int(input())
 votes = []
 strArr = []
+total_vote = 0
 for i in range(total_party):
     party_vote = input()
-    strArr.append(party_vote)
-
-for i in range(len(strArr)):
-    strSplit = strArr[i].split(" ")
+    strSplit = party_vote.split(" ")
     vote_cast_int = []
     for j in range(len(strSplit)):
         vote_cast_int.append(int(strSplit[j]))
     votes.append(vote_cast_int.copy())
-
-total_vote = 0
-for i in range(total_party):
     if votes[i][2] > 0:
         total_vote += votes[i][0]
 
 quota_score = total_vote / 500.0
 target_parliament_member = []
-
+v_per_target_ss = []
+partyList_Step_3 = []
+party_list_not_integer = []
 for i in range(total_party):
     if votes[i][0] <= 0:
         target_parliament_member.append(0)
     else:
         target_parliament_member.append(votes[i][0] / quota_score)
 
-v_per_target_ss = []
-for i in range(total_party):
     if target_parliament_member[i] > 0:
         v_per_target_ss.append(votes[i][0] / target_parliament_member[i])
     else:
         v_per_target_ss.append(0)
 
-partyList_Step_3 = []
-party_list_not_integer = []
-for i in range(total_party):
     partyList = target_parliament_member[i] - votes[i][1]
     if partyList < 0:
         partyList = 0
@@ -65,13 +57,16 @@ if total_party_list < 150:
         max_index_list = [i for i, val in enumerate(
             party_list_not_integer) if val == max1]
         if len(max_index_list) > 1:
+            arr = [0] * total_party
             avg_target = -sys.maxsize - 1
+            for index in max_index_list:
+                arr[index] = v_per_target_ss[index]
             max_index_list_temp = max_index_list.copy()
             max_index_list.clear()
-            for i in max_index_list_temp:
-                if v_per_target_ss[i] >= avg_target:
-                    avg_target = v_per_target_ss[i]
-                    max_index_list.append(i)
+            for i in range(total_party):
+                if arr[i] > avg_target:
+                    avg_target = arr[i]
+                    max_index_list = [i]
 
         index = max_index_list[0]
         if partyList_Step_3[index] < target_parliament_member[index] and partyList_Step_3[index] < votes[index][2]:
