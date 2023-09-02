@@ -57,15 +57,15 @@ if total_party_list < 150:
         max_index_list = [i for i, val in enumerate(
             party_list_not_integer) if val == max1]
         if len(max_index_list) > 1:
-            arr = [0] * total_party
-            avg_target = -sys.maxsize - 1
+            arr_avg_above = [0] * total_party
             for index in max_index_list:
-                arr[index] = v_per_target_ss[index]
-            max_index_list_temp = max_index_list.copy()
+                arr_avg_above[index] = v_per_target_ss[index]
+
             max_index_list.clear()
+            avg_target = -sys.maxsize - 1
             for i in range(total_party):
-                if arr[i] > avg_target:
-                    avg_target = arr[i]
+                if arr_avg_above[i] > avg_target:
+                    avg_target = arr_avg_above[i]
                     max_index_list = [i]
 
         index = max_index_list[0]
