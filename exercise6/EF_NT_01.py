@@ -60,37 +60,24 @@ if total_party_list > 150:
     total_party_list = sum(partyList_Step_3)
 
 if total_party_list < 150:
-    multiple = 1
     while total_party_list < 150:
-        # if (sum(party_list_not_integer) == 0):
-        #     break
         max1 = max(party_list_not_integer)
-        max_index_list = []
-        for i in range(len(party_list_not_integer)):
-            if party_list_not_integer[i] == max1:
-                max_index_list.append(i)
-        if len(max_index_list) == total_party:
-            multiple += 1
+        max_index_list = [i for i, val in enumerate(
+            party_list_not_integer) if val == max1]
         if len(max_index_list) > 1:
             avg_target = -sys.maxsize - 1
             max_index_list_temp = max_index_list.copy()
             max_index_list.clear()
             for i in max_index_list_temp:
-                if v_per_target_ss[i] > 0:
-                    avg_score_per_people = votes[i][0] / v_per_target_ss[i]
-                else:
-                    avg_score_per_people = -sys.maxsize - 1
-                if avg_score_per_people >= avg_target:
-                    avg_target = avg_score_per_people
+                if v_per_target_ss[i] >= avg_target:
+                    avg_target = v_per_target_ss[i]
                     max_index_list.append(i)
-        for index in max_index_list:
-            if partyList_Step_3[index] + 1 <= target_parliament_member[index] and partyList_Step_3[index] + 1 <= votes[index][2]:
-                partyList_Step_3[index] += 1
-                total_party_list += 1
-                break
-            else:
-                party_list_not_integer[index] = -100 * multiple
-        party_list_not_integer[index] = -100 * multiple
+
+        index = max_index_list[0]
+        if partyList_Step_3[index] < target_parliament_member[index] and partyList_Step_3[index] < votes[index][2]:
+            partyList_Step_3[index] += 1
+            total_party_list += 1
+        party_list_not_integer[index] = -100
 
 for i in range(total_party):
     print(votes[i][1] + partyList_Step_3[i])
